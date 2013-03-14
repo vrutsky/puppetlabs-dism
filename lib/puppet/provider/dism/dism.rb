@@ -43,7 +43,7 @@ Puppet::Type.type(:dism).provide(:dism) do
     else
       output = execute([dism_cmd, '/online', '/Enable-Feature', "/FeatureName:#{resource[:name]}", '/NoRestart'], :failonfail => false)
     end
-    raise Puppet::Error, "Unexpected exitcode: #{$?.exitstatus}\nError:#{output}" unless resource[:exitcode].include? $?.exitstatus
+    raise Puppet::Error, "Unexpected exitcode: #{$?.exitstatus}\nError:#{output}" unless resource[:exitcode].include? $?.exitstatus.to_s
   end
 
   def destroy
@@ -53,7 +53,7 @@ Puppet::Type.type(:dism).provide(:dism) do
       dism_cmd = "#{Dir::WINDOWS}\\system32\\Dism.exe"
     end
     output = execute([dism_cmd, '/online', '/Disable-Feature', "/FeatureName:#{resource[:name]}", '/NoRestart'], :failonfail => false)
-    raise Puppet::Error, "Unexpected exitcode: #{$?.exitstatus}\nError:#{output}" unless resource[:exitcode].include? $?.exitstatus
+    raise Puppet::Error, "Unexpected exitcode: #{$?.exitstatus}\nError:#{output}" unless resource[:exitcode].include? $?.exitstatus.to_s
   end
 
   def currentstate

@@ -27,7 +27,8 @@ Puppet::Type.newtype(:dism) do
     desc "DISM installation process exit code"
     # Ruby truncates exit codes to one bytes (https://bugs.ruby-lang.org/issues/8083)
     # so use truncated codes as workaround.
-    #defaultto([0, 3010])
-    defaultto([0, 3010, 3010 & 0xFF])
+    #   3010 & 0xFF = 194
+    #defaultto(["0", "3010"])
+    defaultto(["0", "3010", "194"])
   end
 end
